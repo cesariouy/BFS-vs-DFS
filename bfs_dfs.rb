@@ -67,12 +67,12 @@ class Node
 end
 
 
-# seed data
-root = Node.new(0)
+# binary tree
+binary_root = Node.new(0)
 one = Node.new(1)
-root.add_child(one)
+binary_root.add_child(one)
 two = Node.new(2)
-root.add_child(two)
+binary_root.add_child(two)
 three = Node.new(3)
 one.add_child(three)
 four = Node.new(4)
@@ -98,8 +98,39 @@ six.add_child(thirteen)
 fourteen = Node.new(14)
 six.add_child(fourteen)
 
+# non-binary
+poly_root = Node.new(0)
+one = Node.new(1)
+poly_root.add_child(one)
+two = Node.new(2)
+poly_root.add_child(two)
+three = Node.new(3)
+poly_root.add_child(three)
+four = Node.new(4)
+one.add_child(four)
+five = Node.new(5)
+one.add_child(five)
+six = Node.new(6)
+one.add_child(six)
+seven = Node.new(7)
+two.add_child(seven)
+eight = Node.new(8)
+two.add_child(eight)
+nine = Node.new(9)
+two.add_child(nine)
+ten = Node.new(10)
+two.add_child(ten)
+eleven = Node.new(11)
+two.add_child(eleven)
+twelve = Node.new(12)
+three.add_child(twelve)
+thirteen = Node.new(13)
+three.add_child(thirteen)
+fourteen = Node.new(14)
+three.add_child(fourteen)
 
-def time_test(root)
+
+def binary_test(root)
   bfs_time = 0
   dfs_time = 0
   targets = []
@@ -136,8 +167,55 @@ def time_test(root)
   puts "Breadth-first search took #{bfs_time} seconds,\nwhile Depth-first search took #{dfs_time}."
 end
 
+def non_binary_test(poly_root)
+  bfs_time = 0
+  dfs_time = 0
+  targets = []
+
+  20.times {
+    target = rand(15)
+    targets << target
+
+    bfs_start = Time.now
+    poly_root.bfs(target)
+    bfs_end = Time.now
+    bfs_time += (bfs_end - bfs_start)
+
+    dfs_start = Time.now
+    poly_root.dfs(target)
+    dfs_end = Time.now
+    dfs_time += (dfs_end - dfs_start)
+  }
+
+  puts "               0 (root)         "
+  puts '            /  |  \             '
+  puts '          /    |    \           '
+  puts '        /      |      \         '
+  puts '      /        |        \       '
+  puts '    /          |          \     '
+  puts "   1           2           3    "
+  puts '   |          /|\         /|\   '
+  puts '  /|\       / /|\ \      / | \  '
+  puts ' / | \    /  / | \  \   /  |  \ '
+  puts "4  5  6  7  8  9 10 11 12 13  14"
+  puts ""
+  puts "targets:"
+  p targets
+  puts "Breadth-first search took #{bfs_time} seconds,\nwhile Depth-first search took #{dfs_time}."
+end
+
 loop {
-  puts "\nhit enter to run the test"
-  gets
-  time_test(root)
+  puts "\n(b)inary tree or (n)on-binary?"
+  ans = gets.chomp
+
+  until ["b", "n"].include?(ans)
+    puts "\n(b)inary tree or (n)on-binary?"
+    ans = gets.chomp
+  end
+
+  if ans == "b"
+    binary_test(binary_root)
+  elsif ans == "n"
+    non_binary_test(poly_root)
+  end
 }
