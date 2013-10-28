@@ -205,11 +205,11 @@ def non_binary_test(poly_root)
 end
 
 loop {
-  puts "\n(b)inary tree or (n)on-binary?"
+  puts "\nrun test using (b)inary tree or (n)on-binary?"
   ans = gets.chomp
 
   until ["b", "n"].include?(ans)
-    puts "\n(b)inary tree or (n)on-binary?"
+    puts "\nrun test using (b)inary tree or (n)on-binary?"
     ans = gets.chomp
   end
 
